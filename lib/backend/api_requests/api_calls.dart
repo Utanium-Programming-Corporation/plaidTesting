@@ -43,6 +43,11 @@ class GetLinkTokenCall {
       alwaysAllowBody: false,
     );
   }
+
+  String? token(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.linkToken''',
+      ));
 }
 
 /// End plaid Group Code

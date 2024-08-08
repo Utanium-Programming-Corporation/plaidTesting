@@ -6,6 +6,12 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-Future startPlaid(String userId) async {
+import 'package:plaid_flutter/plaid_flutter.dart';
+
+Future startPlaid(String generatedToken) async {
   // Add your function code here!
+
+  LinkConfiguration configuration = LinkTokenConfiguration(
+    token: generatedToken,
+  );
 }

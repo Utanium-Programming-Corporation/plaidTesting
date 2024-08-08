@@ -1,6 +1,9 @@
+import '/auth/firebase_auth/auth_util.dart';
+import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -66,8 +69,21 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   FFButtonWidget(
-                    onPressed: () {
-                      print('Button pressed ...');
+                    onPressed: () async {
+                      _model.generatedToken =
+                          await PlaidGroup.getLinkTokenCall.call(
+                        userId: currentUserUid,
+                      );
+
+                      if ((_model.generatedToken?.succeeded ?? true)) {
+                        await actions.startPlaid(
+                          PlaidGroup.getLinkTokenCall.token(
+                            (_model.generatedToken?.jsonBody ?? ''),
+                          )!,
+                        );
+                      }
+
+                      setState(() {});
                     },
                     text: 'openLink',
                     options: FFButtonOptions(
