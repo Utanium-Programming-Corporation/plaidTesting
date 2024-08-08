@@ -2,7 +2,6 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/bank_item_widget.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -46,6 +45,91 @@ class _HomePageWidgetState extends State<HomePageWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        floatingActionButton: FloatingActionButton(
+          onPressed: () async {
+            var _shouldSetState = false;
+            _model.generatedLinkToken = await PlaidGroup.getLinkTokenCall.call(
+              userId: currentUserUid,
+            );
+
+            _shouldSetState = true;
+            if ((_model.generatedLinkToken?.succeeded ?? true)) {
+              _model.publicToken = await actions.startPlaid(
+                PlaidGroup.getLinkTokenCall.token(
+                  (_model.generatedLinkToken?.jsonBody ?? ''),
+                )!,
+              );
+              _shouldSetState = true;
+              if (_model.publicToken == null || _model.publicToken == '') {
+                await showDialog(
+                  context: context,
+                  builder: (alertDialogContext) {
+                    return AlertDialog(
+                      title: Text('Error'),
+                      content: Text('Not Valid Public Token'),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.pop(alertDialogContext),
+                          child: Text('Ok'),
+                        ),
+                      ],
+                    );
+                  },
+                );
+                if (_shouldSetState) setState(() {});
+                return;
+              }
+            } else {
+              await showDialog(
+                context: context,
+                builder: (alertDialogContext) {
+                  return AlertDialog(
+                    title: Text('Error'),
+                    content: Text('Error Happened, please try again'),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(alertDialogContext),
+                        child: Text('Ok'),
+                      ),
+                    ],
+                  );
+                },
+              );
+              if (_shouldSetState) setState(() {});
+              return;
+            }
+
+            _model.generatedAccessToken =
+                await PlaidGroup.getAccessTokenAndSaveItCall.call(
+              userId: currentUserUid,
+              publicToken: _model.publicToken,
+            );
+
+            _shouldSetState = true;
+            if ((_model.generatedAccessToken?.succeeded ?? true)) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    'ok',
+                    style: TextStyle(
+                      color: FlutterFlowTheme.of(context).primaryText,
+                    ),
+                  ),
+                  duration: Duration(milliseconds: 4000),
+                  backgroundColor: FlutterFlowTheme.of(context).secondary,
+                ),
+              );
+            }
+            if (_shouldSetState) setState(() {});
+          },
+          backgroundColor: FlutterFlowTheme.of(context).primary,
+          elevation: 8.0,
+          child: Icon(
+            Icons.add,
+            color: FlutterFlowTheme.of(context).info,
+            size: 24.0,
+          ),
+        ),
         appBar: AppBar(
           backgroundColor: FlutterFlowTheme.of(context).primary,
           automaticallyImplyLeading: false,
@@ -61,96 +145,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       fontSize: 22.0,
                       letterSpacing: 0.0,
                     ),
-              ),
-              FlutterFlowIconButton(
-                borderRadius: 20.0,
-                borderWidth: 1.0,
-                buttonSize: 40.0,
-                icon: Icon(
-                  Icons.add,
-                  color: FlutterFlowTheme.of(context).secondaryBackground,
-                  size: 24.0,
-                ),
-                onPressed: () async {
-                  var _shouldSetState = false;
-                  _model.generatedLinkToken =
-                      await PlaidGroup.getLinkTokenCall.call(
-                    userId: currentUserUid,
-                  );
-
-                  _shouldSetState = true;
-                  if ((_model.generatedLinkToken?.succeeded ?? true)) {
-                    _model.publicToken = await actions.startPlaid(
-                      PlaidGroup.getLinkTokenCall.token(
-                        (_model.generatedLinkToken?.jsonBody ?? ''),
-                      )!,
-                    );
-                    _shouldSetState = true;
-                    if (_model.publicToken == null ||
-                        _model.publicToken == '') {
-                      await showDialog(
-                        context: context,
-                        builder: (alertDialogContext) {
-                          return AlertDialog(
-                            title: Text('Error'),
-                            content: Text('Error Happened, please try again'),
-                            actions: [
-                              TextButton(
-                                onPressed: () =>
-                                    Navigator.pop(alertDialogContext),
-                                child: Text('Ok'),
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                      if (_shouldSetState) setState(() {});
-                      return;
-                    }
-                  } else {
-                    await showDialog(
-                      context: context,
-                      builder: (alertDialogContext) {
-                        return AlertDialog(
-                          title: Text('Error'),
-                          content: Text('Error Happened, please try again'),
-                          actions: [
-                            TextButton(
-                              onPressed: () =>
-                                  Navigator.pop(alertDialogContext),
-                              child: Text('Ok'),
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                    if (_shouldSetState) setState(() {});
-                    return;
-                  }
-
-                  _model.generatedAccessToken =
-                      await PlaidGroup.getAccessTokenAndSaveItCall.call(
-                    userId: currentUserUid,
-                    publicToken: _model.publicToken,
-                  );
-
-                  _shouldSetState = true;
-                  if ((_model.generatedAccessToken?.succeeded ?? true)) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(
-                          'ok',
-                          style: TextStyle(
-                            color: FlutterFlowTheme.of(context).primaryText,
-                          ),
-                        ),
-                        duration: Duration(milliseconds: 4000),
-                        backgroundColor: FlutterFlowTheme.of(context).secondary,
-                      ),
-                    );
-                  }
-                  if (_shouldSetState) setState(() {});
-                },
               ),
             ],
           ),
