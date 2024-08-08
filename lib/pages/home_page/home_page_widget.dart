@@ -186,10 +186,14 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       separatorBuilder: (_, __) => SizedBox(height: 10.0),
                       itemBuilder: (context, tokenIndex) {
                         final tokenItem = token[tokenIndex];
-                        return BankItemWidget(
-                          key: Key('Keyq2q_${tokenIndex}_of_${token.length}'),
-                          accessToken: tokenItem.accessToken,
-                          itemId: tokenItem.itemId,
+                        return Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              14.0, 0.0, 14.0, 0.0),
+                          child: BankItemWidget(
+                            key: Key('Keyq2q_${tokenIndex}_of_${token.length}'),
+                            accessToken: tokenItem.accessToken,
+                            itemId: tokenItem.itemId,
+                          ),
                         );
                       },
                     );
