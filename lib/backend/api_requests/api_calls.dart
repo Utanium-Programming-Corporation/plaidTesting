@@ -19,6 +19,7 @@ class PlaidGroup {
   static GetLinkTokenCall getLinkTokenCall = GetLinkTokenCall();
   static GetAccessTokenAndSaveItCall getAccessTokenAndSaveItCall =
       GetAccessTokenAndSaveItCall();
+  static GetItemInfoCall getItemInfoCall = GetItemInfoCall();
 }
 
 class GetLinkTokenCall {
@@ -90,6 +91,39 @@ class GetAccessTokenAndSaveItCall {
   String? accessToken(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.accessToken''',
+      ));
+}
+
+class GetItemInfoCall {
+  Future<ApiCallResponse> call({
+    String? accessToken = '',
+  }) async {
+    final baseUrl = PlaidGroup.getBaseUrl();
+
+    final ffApiRequestBody = '''
+{
+  "accessToken": "${accessToken}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'getItemInfo',
+      apiUrl: '${baseUrl}getiteminfo-houkjyjpuq-nw.a.run.app',
+      callType: ApiCallType.POST,
+      headers: {},
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  String? bankName(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.institution.name''',
       ));
 }
 
