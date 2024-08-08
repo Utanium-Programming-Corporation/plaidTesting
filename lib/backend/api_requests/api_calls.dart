@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
+import '../schema/structs/index.dart';
+
 import 'package:flutter/foundation.dart';
 
 import '/flutter_flow/flutter_flow_util.dart';
@@ -15,6 +17,8 @@ class PlaidGroup {
   static String getBaseUrl() => 'https://';
   static Map<String, String> headers = {};
   static GetLinkTokenCall getLinkTokenCall = GetLinkTokenCall();
+  static GetAccessTokenAndSaveItCall getAccessTokenAndSaveItCall =
+      GetAccessTokenAndSaveItCall();
 }
 
 class GetLinkTokenCall {
@@ -50,6 +54,36 @@ class GetLinkTokenCall {
       ));
 }
 
+class GetAccessTokenAndSaveItCall {
+  Future<ApiCallResponse> call({
+    String? userId = '',
+    String? publicToken = '',
+  }) async {
+    final baseUrl = PlaidGroup.getBaseUrl();
+
+    final ffApiRequestBody = '''
+{
+  "userId": "${userId}",
+  "publicToken": "${publicToken}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'getAccessTokenAndSaveIt',
+      apiUrl: '${baseUrl}getaccesstokenandsaveit-houkjyjpuq-nw.a.run.app',
+      callType: ApiCallType.POST,
+      headers: {},
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
 /// End plaid Group Code
 
 class ApiPagingParams {
@@ -69,6 +103,9 @@ class ApiPagingParams {
 }
 
 String _toEncodable(dynamic item) {
+  if (item is DocumentReference) {
+    return item.path;
+  }
   return item;
 }
 
