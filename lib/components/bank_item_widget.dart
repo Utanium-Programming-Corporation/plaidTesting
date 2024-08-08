@@ -2,6 +2,7 @@ import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'bank_item_model.dart';
@@ -82,6 +83,15 @@ class _BankItemWidgetState extends State<BankItemWidget> {
                 Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 10.0, 0.0),
+                      child: FaIcon(
+                        FontAwesomeIcons.solidBuilding,
+                        color: FlutterFlowTheme.of(context).secondaryText,
+                        size: 30.0,
+                      ),
+                    ),
                     Text(
                       PlaidGroup.getItemInfoCall.bankName(
                         cardGetItemInfoResponse.jsonBody,
