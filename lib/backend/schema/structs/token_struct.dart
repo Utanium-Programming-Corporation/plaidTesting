@@ -11,10 +11,10 @@ import '/flutter_flow/flutter_flow_util.dart';
 class TokenStruct extends FFFirebaseStruct {
   TokenStruct({
     String? accessToken,
-    String? tokenId,
+    String? itemId,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _accessToken = accessToken,
-        _tokenId = tokenId,
+        _itemId = itemId,
         super(firestoreUtilData);
 
   // "accessToken" field.
@@ -24,16 +24,16 @@ class TokenStruct extends FFFirebaseStruct {
 
   bool hasAccessToken() => _accessToken != null;
 
-  // "tokenId" field.
-  String? _tokenId;
-  String get tokenId => _tokenId ?? '';
-  set tokenId(String? val) => _tokenId = val;
+  // "itemId" field.
+  String? _itemId;
+  String get itemId => _itemId ?? '';
+  set itemId(String? val) => _itemId = val;
 
-  bool hasTokenId() => _tokenId != null;
+  bool hasItemId() => _itemId != null;
 
   static TokenStruct fromMap(Map<String, dynamic> data) => TokenStruct(
         accessToken: data['accessToken'] as String?,
-        tokenId: data['tokenId'] as String?,
+        itemId: data['itemId'] as String?,
       );
 
   static TokenStruct? maybeFromMap(dynamic data) =>
@@ -41,7 +41,7 @@ class TokenStruct extends FFFirebaseStruct {
 
   Map<String, dynamic> toMap() => {
         'accessToken': _accessToken,
-        'tokenId': _tokenId,
+        'itemId': _itemId,
       }.withoutNulls;
 
   @override
@@ -50,8 +50,8 @@ class TokenStruct extends FFFirebaseStruct {
           _accessToken,
           ParamType.String,
         ),
-        'tokenId': serializeParam(
-          _tokenId,
+        'itemId': serializeParam(
+          _itemId,
           ParamType.String,
         ),
       }.withoutNulls;
@@ -63,8 +63,8 @@ class TokenStruct extends FFFirebaseStruct {
           ParamType.String,
           false,
         ),
-        tokenId: deserializeParam(
-          data['tokenId'],
+        itemId: deserializeParam(
+          data['itemId'],
           ParamType.String,
           false,
         ),
@@ -77,16 +77,16 @@ class TokenStruct extends FFFirebaseStruct {
   bool operator ==(Object other) {
     return other is TokenStruct &&
         accessToken == other.accessToken &&
-        tokenId == other.tokenId;
+        itemId == other.itemId;
   }
 
   @override
-  int get hashCode => const ListEquality().hash([accessToken, tokenId]);
+  int get hashCode => const ListEquality().hash([accessToken, itemId]);
 }
 
 TokenStruct createTokenStruct({
   String? accessToken,
-  String? tokenId,
+  String? itemId,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
@@ -94,7 +94,7 @@ TokenStruct createTokenStruct({
 }) =>
     TokenStruct(
       accessToken: accessToken,
-      tokenId: tokenId,
+      itemId: itemId,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,
