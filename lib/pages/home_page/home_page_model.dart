@@ -16,7 +16,11 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
   ///  State fields for stateful widgets in this page.
 
   // Stores action output result for [Backend Call - API (getLinkToken)] action in IconButton widget.
-  ApiCallResponse? generatedTokenAdd;
+  ApiCallResponse? generatedLinkToken;
+  // Stores action output result for [Custom Action - startPlaid] action in IconButton widget.
+  String? publicToken;
+  // Stores action output result for [Backend Call - API (getAccessTokenAndSaveIt)] action in IconButton widget.
+  ApiCallResponse? generatedAccessToken;
 
   @override
   void initState(BuildContext context) {}

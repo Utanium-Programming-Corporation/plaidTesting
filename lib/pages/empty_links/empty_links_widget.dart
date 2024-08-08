@@ -81,17 +81,39 @@ class _EmptyLinksWidgetState extends State<EmptyLinksWidget> {
             FFButtonWidget(
               onPressed: () async {
                 var _shouldSetState = false;
-                _model.generatedToken = await PlaidGroup.getLinkTokenCall.call(
+                _model.generatedLinkToken =
+                    await PlaidGroup.getLinkTokenCall.call(
                   userId: currentUserUid,
                 );
 
                 _shouldSetState = true;
-                if ((_model.generatedToken?.succeeded ?? true)) {
-                  await actions.startPlaid(
+                if ((_model.generatedLinkToken?.succeeded ?? true)) {
+                  _model.publicToken = await actions.startPlaid(
                     PlaidGroup.getLinkTokenCall.token(
-                      (_model.generatedToken?.jsonBody ?? ''),
+                      (_model.generatedLinkToken?.jsonBody ?? ''),
                     )!,
                   );
+                  _shouldSetState = true;
+                  if (_model.publicToken == null || _model.publicToken == '') {
+                    await showDialog(
+                      context: context,
+                      builder: (alertDialogContext) {
+                        return AlertDialog(
+                          title: Text('Error'),
+                          content: Text('Error Happened, please try again'),
+                          actions: [
+                            TextButton(
+                              onPressed: () =>
+                                  Navigator.pop(alertDialogContext),
+                              child: Text('Ok'),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                    if (_shouldSetState) setState(() {});
+                    return;
+                  }
                 } else {
                   await showDialog(
                     context: context,
@@ -112,16 +134,14 @@ class _EmptyLinksWidgetState extends State<EmptyLinksWidget> {
                   return;
                 }
 
-                _model.accessToken =
+                _model.generatedAccessToken =
                     await PlaidGroup.getAccessTokenAndSaveItCall.call(
                   userId: currentUserUid,
-                  publicToken: PlaidGroup.getLinkTokenCall.token(
-                    (_model.generatedToken?.jsonBody ?? ''),
-                  ),
+                  publicToken: _model.publicToken,
                 );
 
                 _shouldSetState = true;
-                if ((_model.accessToken?.succeeded ?? true)) {
+                if ((_model.generatedAccessToken?.succeeded ?? true)) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(

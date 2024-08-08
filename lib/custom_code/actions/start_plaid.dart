@@ -10,9 +10,11 @@ import 'package:flutter/material.dart';
 
 import 'index.dart'; // Imports other custom actions
 
+import 'index.dart'; // Imports other custom actions
+import 'dart:developer' as logger;
 import 'package:plaid_flutter/plaid_flutter.dart';
 
-Future startPlaid(String generatedToken) async {
+Future<String?> startPlaid(String generatedToken) async {
   // Add your function code here!
 
   var notFinished = true;

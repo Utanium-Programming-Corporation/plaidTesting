@@ -82,6 +82,15 @@ class GetAccessTokenAndSaveItCall {
       alwaysAllowBody: false,
     );
   }
+
+  String? itemId(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.itemId''',
+      ));
+  String? accessToken(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.accessToken''',
+      ));
 }
 
 /// End plaid Group Code

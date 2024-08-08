@@ -71,20 +71,84 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   size: 24.0,
                 ),
                 onPressed: () async {
-                  _model.generatedTokenAdd =
+                  var _shouldSetState = false;
+                  _model.generatedLinkToken =
                       await PlaidGroup.getLinkTokenCall.call(
                     userId: currentUserUid,
                   );
 
-                  if ((_model.generatedTokenAdd?.succeeded ?? true)) {
-                    await actions.startPlaid(
+                  _shouldSetState = true;
+                  if ((_model.generatedLinkToken?.succeeded ?? true)) {
+                    _model.publicToken = await actions.startPlaid(
                       PlaidGroup.getLinkTokenCall.token(
-                        (_model.generatedTokenAdd?.jsonBody ?? ''),
+                        (_model.generatedLinkToken?.jsonBody ?? ''),
                       )!,
                     );
+                    _shouldSetState = true;
+                    if (_model.publicToken == null ||
+                        _model.publicToken == '') {
+                      await showDialog(
+                        context: context,
+                        builder: (alertDialogContext) {
+                          return AlertDialog(
+                            title: Text('Error'),
+                            content: Text('Error Happened, please try again'),
+                            actions: [
+                              TextButton(
+                                onPressed: () =>
+                                    Navigator.pop(alertDialogContext),
+                                child: Text('Ok'),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                      if (_shouldSetState) setState(() {});
+                      return;
+                    }
+                  } else {
+                    await showDialog(
+                      context: context,
+                      builder: (alertDialogContext) {
+                        return AlertDialog(
+                          title: Text('Error'),
+                          content: Text('Error Happened, please try again'),
+                          actions: [
+                            TextButton(
+                              onPressed: () =>
+                                  Navigator.pop(alertDialogContext),
+                              child: Text('Ok'),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                    if (_shouldSetState) setState(() {});
+                    return;
                   }
 
-                  setState(() {});
+                  _model.generatedAccessToken =
+                      await PlaidGroup.getAccessTokenAndSaveItCall.call(
+                    userId: currentUserUid,
+                    publicToken: _model.publicToken,
+                  );
+
+                  _shouldSetState = true;
+                  if ((_model.generatedAccessToken?.succeeded ?? true)) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          'ok',
+                          style: TextStyle(
+                            color: FlutterFlowTheme.of(context).primaryText,
+                          ),
+                        ),
+                        duration: Duration(milliseconds: 4000),
+                        backgroundColor: FlutterFlowTheme.of(context).secondary,
+                      ),
+                    );
+                  }
+                  if (_shouldSetState) setState(() {});
                 },
               ),
             ],

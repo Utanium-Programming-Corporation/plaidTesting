@@ -13,9 +13,11 @@ class EmptyLinksModel extends FlutterFlowModel<EmptyLinksWidget> {
   ///  State fields for stateful widgets in this component.
 
   // Stores action output result for [Backend Call - API (getLinkToken)] action in LinkButton widget.
-  ApiCallResponse? generatedToken;
+  ApiCallResponse? generatedLinkToken;
+  // Stores action output result for [Custom Action - startPlaid] action in LinkButton widget.
+  String? publicToken;
   // Stores action output result for [Backend Call - API (getAccessTokenAndSaveIt)] action in LinkButton widget.
-  ApiCallResponse? accessToken;
+  ApiCallResponse? generatedAccessToken;
 
   @override
   void initState(BuildContext context) {}
