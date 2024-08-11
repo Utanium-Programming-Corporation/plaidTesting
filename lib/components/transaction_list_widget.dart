@@ -95,9 +95,11 @@ class _TransactionListWidgetState extends State<TransactionListWidget> {
                               fit: BoxFit.cover,
                             ),
                           ),
-                        if (transactionItem.counterparties.first.logoUrl ==
-                                null ||
-                            transactionItem.counterparties.first.logoUrl == '')
+                        if ((transactionItem.counterparties.length == 0) &&
+                            (transactionItem.counterparties.first.logoUrl ==
+                                    null ||
+                                transactionItem.counterparties.first.logoUrl ==
+                                    ''))
                           Icon(
                             Icons.business,
                             color: FlutterFlowTheme.of(context).primaryText,
