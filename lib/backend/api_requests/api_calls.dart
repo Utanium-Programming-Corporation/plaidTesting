@@ -185,6 +185,16 @@ class GetUserTransactionsCall {
       alwaysAllowBody: false,
     );
   }
+
+  List<TransactionStruct>? transactions(dynamic response) => (getJsonField(
+        response,
+        r'''$.transactions''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => TransactionStruct.maybeFromMap(x))
+          .withoutNulls
+          .toList();
 }
 
 /// End plaid Group Code

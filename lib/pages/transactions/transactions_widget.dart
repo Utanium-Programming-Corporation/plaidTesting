@@ -4,7 +4,6 @@ import '/components/transaction_list_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/backend/schema/structs/index.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -87,13 +86,9 @@ class _TransactionsWidgetState extends State<TransactionsWidget> {
                 model: _model.transactionListModel,
                 updateCallback: () => setState(() {}),
                 child: TransactionListWidget(
-                  transactions: (transactionListGetUserTransactionsResponse
-                          .jsonBody
-                          .toList()
-                          .map<TransactionStruct?>(
-                              TransactionStruct.maybeFromMap)
-                          .toList() as Iterable<TransactionStruct?>)
-                      .withoutNulls,
+                  transactions: PlaidGroup.getUserTransactionsCall.transactions(
+                    transactionListGetUserTransactionsResponse.jsonBody,
+                  )!,
                 ),
               );
             },
