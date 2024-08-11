@@ -20,6 +20,10 @@ class PlaidGroup {
   static GetAccessTokenAndSaveItCall getAccessTokenAndSaveItCall =
       GetAccessTokenAndSaveItCall();
   static GetItemInfoCall getItemInfoCall = GetItemInfoCall();
+  static GetItemTransactionsCall getItemTransactionsCall =
+      GetItemTransactionsCall();
+  static GetUserTransactionsCall getUserTransactionsCall =
+      GetUserTransactionsCall();
 }
 
 class GetLinkTokenCall {
@@ -125,6 +129,62 @@ class GetItemInfoCall {
         response,
         r'''$.institution.name''',
       ));
+}
+
+class GetItemTransactionsCall {
+  Future<ApiCallResponse> call({
+    String? accessToken = '',
+  }) async {
+    final baseUrl = PlaidGroup.getBaseUrl();
+
+    final ffApiRequestBody = '''
+{
+  "accessToken": "${accessToken}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'getItemTransactions',
+      apiUrl: '${baseUrl}getitemtransactions-houkjyjpuq-nw.a.run.app',
+      callType: ApiCallType.POST,
+      headers: {},
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class GetUserTransactionsCall {
+  Future<ApiCallResponse> call({
+    String? userId = '',
+  }) async {
+    final baseUrl = PlaidGroup.getBaseUrl();
+
+    final ffApiRequestBody = '''
+{
+  "userId": "${userId}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'getUserTransactions',
+      apiUrl: '${baseUrl}getusertransactions-houkjyjpuq-nw.a.run.app',
+      callType: ApiCallType.POST,
+      headers: {},
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
 }
 
 /// End plaid Group Code

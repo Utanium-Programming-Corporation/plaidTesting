@@ -1,6 +1,10 @@
+import '/auth/firebase_auth/auth_util.dart';
+import '/backend/api_requests/api_calls.dart';
+import '/components/transaction_list_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/backend/schema/structs/index.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -58,10 +62,41 @@ class _TransactionsWidgetState extends State<TransactionsWidget> {
         ),
         body: SafeArea(
           top: true,
-          child: ListView(
-            padding: EdgeInsets.zero,
-            scrollDirection: Axis.vertical,
-            children: [],
+          child: FutureBuilder<ApiCallResponse>(
+            future: PlaidGroup.getUserTransactionsCall.call(
+              userId: currentUserUid,
+            ),
+            builder: (context, snapshot) {
+              // Customize what your widget looks like when it's loading.
+              if (!snapshot.hasData) {
+                return Center(
+                  child: SizedBox(
+                    width: 50.0,
+                    height: 50.0,
+                    child: CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                        FlutterFlowTheme.of(context).primary,
+                      ),
+                    ),
+                  ),
+                );
+              }
+              final transactionListGetUserTransactionsResponse = snapshot.data!;
+
+              return wrapWithModel(
+                model: _model.transactionListModel,
+                updateCallback: () => setState(() {}),
+                child: TransactionListWidget(
+                  transactions: (transactionListGetUserTransactionsResponse
+                          .jsonBody
+                          .toList()
+                          .map<TransactionStruct?>(
+                              TransactionStruct.maybeFromMap)
+                          .toList() as Iterable<TransactionStruct?>)
+                      .withoutNulls,
+                ),
+              );
+            },
           ),
         ),
       ),
