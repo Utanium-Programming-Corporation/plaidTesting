@@ -1,4 +1,5 @@
 import '/backend/api_requests/api_calls.dart';
+import '/components/blances_list_widget.dart';
 import '/components/transaction_list_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -84,12 +85,14 @@ class _ItemDetailsWidgetState extends State<ItemDetailsWidget> {
         ),
         body: SafeArea(
           top: true,
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Expanded(
-                child: FutureBuilder<ApiCallResponse>(
-                  future: PlaidGroup.getItemTransactionsCall.call(
+          child: Padding(
+            padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                FutureBuilder<ApiCallResponse>(
+                  future: PlaidGroup.getItemBalanceCall.call(
                     accessToken: widget!.accessToken,
                   ),
                   builder: (context, snapshot) {
@@ -107,23 +110,64 @@ class _ItemDetailsWidgetState extends State<ItemDetailsWidget> {
                         ),
                       );
                     }
-                    final transactionListGetItemTransactionsResponse =
-                        snapshot.data!;
+                    final blancesListGetItemBalanceResponse = snapshot.data!;
 
                     return wrapWithModel(
-                      model: _model.transactionListModel,
+                      model: _model.blancesListModel,
                       updateCallback: () => setState(() {}),
-                      child: TransactionListWidget(
-                        transactions:
-                            PlaidGroup.getItemTransactionsCall.transactions(
-                          transactionListGetItemTransactionsResponse.jsonBody,
+                      child: BlancesListWidget(
+                        accounts: PlaidGroup.getItemBalanceCall.accounts(
+                          blancesListGetItemBalanceResponse.jsonBody,
                         )!,
                       ),
                     );
                   },
                 ),
-              ),
-            ],
+                Text(
+                  'Transactions',
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        fontFamily: 'Readex Pro',
+                        letterSpacing: 0.0,
+                      ),
+                ),
+                Expanded(
+                  child: FutureBuilder<ApiCallResponse>(
+                    future: PlaidGroup.getItemTransactionsCall.call(
+                      accessToken: widget!.accessToken,
+                    ),
+                    builder: (context, snapshot) {
+                      // Customize what your widget looks like when it's loading.
+                      if (!snapshot.hasData) {
+                        return Center(
+                          child: SizedBox(
+                            width: 50.0,
+                            height: 50.0,
+                            child: CircularProgressIndicator(
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                FlutterFlowTheme.of(context).primary,
+                              ),
+                            ),
+                          ),
+                        );
+                      }
+                      final transactionListGetItemTransactionsResponse =
+                          snapshot.data!;
+
+                      return wrapWithModel(
+                        model: _model.transactionListModel,
+                        updateCallback: () => setState(() {}),
+                        child: TransactionListWidget(
+                          transactions:
+                              PlaidGroup.getItemTransactionsCall.transactions(
+                            transactionListGetItemTransactionsResponse.jsonBody,
+                          )!,
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

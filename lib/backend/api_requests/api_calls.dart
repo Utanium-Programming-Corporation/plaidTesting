@@ -24,6 +24,7 @@ class PlaidGroup {
       GetItemTransactionsCall();
   static GetUserTransactionsCall getUserTransactionsCall =
       GetUserTransactionsCall();
+  static GetItemBalanceCall getItemBalanceCall = GetItemBalanceCall();
 }
 
 class GetLinkTokenCall {
@@ -203,6 +204,44 @@ class GetUserTransactionsCall {
       ) as List?)
           ?.withoutNulls
           .map((x) => TransactionStruct.maybeFromMap(x))
+          .withoutNulls
+          .toList();
+}
+
+class GetItemBalanceCall {
+  Future<ApiCallResponse> call({
+    String? accessToken = '',
+  }) async {
+    final baseUrl = PlaidGroup.getBaseUrl();
+
+    final ffApiRequestBody = '''
+{
+  "accessToken": "${accessToken}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'getItemBalance',
+      apiUrl: '${baseUrl}getitembalances-houkjyjpuq-nw.a.run.app',
+      callType: ApiCallType.POST,
+      headers: {},
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  List<AccountStruct>? accounts(dynamic response) => (getJsonField(
+        response,
+        r'''$.accounts''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => AccountStruct.maybeFromMap(x))
           .withoutNulls
           .toList();
 }
