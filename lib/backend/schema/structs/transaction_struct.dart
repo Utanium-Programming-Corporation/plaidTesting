@@ -16,7 +16,7 @@ class TransactionStruct extends FFFirebaseStruct {
     List<CounterpartiesStruct>? counterparties,
     String? isoCurrencyCode,
     LocationStruct? location,
-    DateTime? date,
+    String? date,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _type = type,
         _amount = amount,
@@ -84,9 +84,9 @@ class TransactionStruct extends FFFirebaseStruct {
   bool hasLocation() => _location != null;
 
   // "date" field.
-  DateTime? _date;
-  DateTime? get date => _date;
-  set date(DateTime? val) => _date = val;
+  String? _date;
+  String get date => _date ?? '';
+  set date(String? val) => _date = val;
 
   bool hasDate() => _date != null;
 
@@ -101,7 +101,7 @@ class TransactionStruct extends FFFirebaseStruct {
         ),
         isoCurrencyCode: data['iso_currency_code'] as String?,
         location: LocationStruct.maybeFromMap(data['location']),
-        date: data['date'] as DateTime?,
+        date: data['date'] as String?,
       );
 
   static TransactionStruct? maybeFromMap(dynamic data) => data is Map
@@ -148,7 +148,7 @@ class TransactionStruct extends FFFirebaseStruct {
         ),
         'date': serializeParam(
           _date,
-          ParamType.DateTime,
+          ParamType.String,
         ),
       }.withoutNulls;
 
@@ -188,7 +188,7 @@ class TransactionStruct extends FFFirebaseStruct {
         ),
         date: deserializeParam(
           data['date'],
-          ParamType.DateTime,
+          ParamType.String,
           false,
         ),
       );
@@ -226,7 +226,7 @@ TransactionStruct createTransactionStruct({
   double? amount,
   String? isoCurrencyCode,
   LocationStruct? location,
-  DateTime? date,
+  String? date,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,

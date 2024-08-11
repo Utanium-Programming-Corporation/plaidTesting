@@ -1,6 +1,7 @@
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -46,7 +47,7 @@ class _TransactionListWidgetState extends State<TransactionListWidget> {
     return Builder(
       builder: (context) {
         final transaction = widget!.transactions!
-            .sortedList(keyOf: (e) => e.date!, desc: true)
+            .sortedList(keyOf: (e) => e.date, desc: true)
             .toList();
 
         return ListView.separated(
@@ -149,7 +150,13 @@ class _TransactionListWidgetState extends State<TransactionListWidget> {
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 5.0, 0.0, 0.0),
                             child: Text(
-                              dateTimeFormat("relative", transactionItem.date!),
+                              transactionItem.date != null &&
+                                      transactionItem.date != ''
+                                  ? dateTimeFormat(
+                                      "relative",
+                                      functions
+                                          .stringToDate(transactionItem.date))
+                                  : '',
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
