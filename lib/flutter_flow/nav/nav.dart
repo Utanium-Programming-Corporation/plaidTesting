@@ -106,6 +106,20 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => params.isEmpty
               ? NavBarPage(initialPage: 'transactions')
               : TransactionsWidget(),
+        ),
+        FFRoute(
+          name: 'itemDetails',
+          path: '/itemDetails',
+          builder: (context, params) => ItemDetailsWidget(
+            name: params.getParam(
+              'name',
+              ParamType.String,
+            ),
+            accessToken: params.getParam(
+              'accessToken',
+              ParamType.String,
+            ),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

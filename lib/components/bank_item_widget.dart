@@ -67,43 +67,66 @@ class _BankItemWidgetState extends State<BankItemWidget> {
         }
         final cardGetItemInfoResponse = snapshot.data!;
 
-        return Card(
-          clipBehavior: Clip.antiAliasWithSaveLayer,
-          color: FlutterFlowTheme.of(context).secondaryBackground,
-          elevation: 4.0,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8.0),
-          ),
-          child: Padding(
-            padding: EdgeInsets.all(10.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 10.0, 0.0),
-                      child: FaIcon(
-                        FontAwesomeIcons.solidBuilding,
-                        color: FlutterFlowTheme.of(context).secondaryText,
-                        size: 30.0,
-                      ),
-                    ),
-                    Text(
-                      PlaidGroup.getItemInfoCall.bankName(
-                        cardGetItemInfoResponse.jsonBody,
-                      )!,
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Readex Pro',
-                            letterSpacing: 0.0,
-                          ),
-                    ),
-                  ],
+        return InkWell(
+          splashColor: Colors.transparent,
+          focusColor: Colors.transparent,
+          hoverColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+          onTap: () async {
+            context.pushNamed(
+              'itemDetails',
+              queryParameters: {
+                'name': serializeParam(
+                  PlaidGroup.getItemInfoCall.bankName(
+                    cardGetItemInfoResponse.jsonBody,
+                  ),
+                  ParamType.String,
                 ),
-              ],
+                'accessToken': serializeParam(
+                  widget!.accessToken,
+                  ParamType.String,
+                ),
+              }.withoutNulls,
+            );
+          },
+          child: Card(
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            color: FlutterFlowTheme.of(context).secondaryBackground,
+            elevation: 4.0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            child: Padding(
+              padding: EdgeInsets.all(10.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 10.0, 0.0),
+                        child: FaIcon(
+                          FontAwesomeIcons.solidBuilding,
+                          color: FlutterFlowTheme.of(context).secondaryText,
+                          size: 30.0,
+                        ),
+                      ),
+                      Text(
+                        PlaidGroup.getItemInfoCall.bankName(
+                          cardGetItemInfoResponse.jsonBody,
+                        )!,
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Readex Pro',
+                              letterSpacing: 0.0,
+                            ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         );
