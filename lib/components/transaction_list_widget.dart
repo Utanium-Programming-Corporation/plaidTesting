@@ -78,9 +78,11 @@ class _TransactionListWidgetState extends State<TransactionListWidget> {
                   children: [
                     Stack(
                       children: [
-                        if (transactionItem.counterparties.first.logoUrl !=
-                                null &&
-                            transactionItem.counterparties.first.logoUrl != '')
+                        if ((transactionItem.counterparties.length > 0) &&
+                            (transactionItem.counterparties.first.logoUrl !=
+                                    null &&
+                                transactionItem.counterparties.first.logoUrl !=
+                                    ''))
                           Container(
                             width: 40.0,
                             height: 40.0,
