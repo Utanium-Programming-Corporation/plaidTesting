@@ -76,17 +76,32 @@ class _TransactionListWidgetState extends State<TransactionListWidget> {
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                      width: 40.0,
-                      height: 40.0,
-                      clipBehavior: Clip.antiAlias,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                      ),
-                      child: Image.network(
-                        transactionItem.counterparties.first.logoUrl,
-                        fit: BoxFit.cover,
-                      ),
+                    Stack(
+                      children: [
+                        if (transactionItem.counterparties.first.logoUrl !=
+                                null &&
+                            transactionItem.counterparties.first.logoUrl != '')
+                          Container(
+                            width: 40.0,
+                            height: 40.0,
+                            clipBehavior: Clip.antiAlias,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                            ),
+                            child: Image.network(
+                              transactionItem.counterparties.first.logoUrl,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        if (transactionItem.counterparties.first.logoUrl ==
+                                null ||
+                            transactionItem.counterparties.first.logoUrl == '')
+                          Icon(
+                            Icons.business,
+                            color: FlutterFlowTheme.of(context).primaryText,
+                            size: 40.0,
+                          ),
+                      ],
                     ),
                     Expanded(
                       child: Padding(
