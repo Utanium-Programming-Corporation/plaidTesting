@@ -13,14 +13,14 @@ class BalancesStruct extends FFFirebaseStruct {
     int? available,
     int? current,
     String? isoCurrencyCode,
-    String? limit,
     String? unofficialCurrencyCode,
+    double? limit,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _available = available,
         _current = current,
         _isoCurrencyCode = isoCurrencyCode,
-        _limit = limit,
         _unofficialCurrencyCode = unofficialCurrencyCode,
+        _limit = limit,
         super(firestoreUtilData);
 
   // "available" field.
@@ -48,13 +48,6 @@ class BalancesStruct extends FFFirebaseStruct {
 
   bool hasIsoCurrencyCode() => _isoCurrencyCode != null;
 
-  // "limit" field.
-  String? _limit;
-  String get limit => _limit ?? '';
-  set limit(String? val) => _limit = val;
-
-  bool hasLimit() => _limit != null;
-
   // "unofficial_currency_code" field.
   String? _unofficialCurrencyCode;
   String get unofficialCurrencyCode => _unofficialCurrencyCode ?? '';
@@ -62,12 +55,21 @@ class BalancesStruct extends FFFirebaseStruct {
 
   bool hasUnofficialCurrencyCode() => _unofficialCurrencyCode != null;
 
+  // "limit" field.
+  double? _limit;
+  double get limit => _limit ?? 0.0;
+  set limit(double? val) => _limit = val;
+
+  void incrementLimit(double amount) => limit = limit + amount;
+
+  bool hasLimit() => _limit != null;
+
   static BalancesStruct fromMap(Map<String, dynamic> data) => BalancesStruct(
         available: castToType<int>(data['available']),
         current: castToType<int>(data['current']),
         isoCurrencyCode: data['iso_currency_code'] as String?,
-        limit: data['limit'] as String?,
         unofficialCurrencyCode: data['unofficial_currency_code'] as String?,
+        limit: castToType<double>(data['limit']),
       );
 
   static BalancesStruct? maybeFromMap(dynamic data) =>
@@ -77,8 +79,8 @@ class BalancesStruct extends FFFirebaseStruct {
         'available': _available,
         'current': _current,
         'iso_currency_code': _isoCurrencyCode,
-        'limit': _limit,
         'unofficial_currency_code': _unofficialCurrencyCode,
+        'limit': _limit,
       }.withoutNulls;
 
   @override
@@ -95,13 +97,13 @@ class BalancesStruct extends FFFirebaseStruct {
           _isoCurrencyCode,
           ParamType.String,
         ),
-        'limit': serializeParam(
-          _limit,
-          ParamType.String,
-        ),
         'unofficial_currency_code': serializeParam(
           _unofficialCurrencyCode,
           ParamType.String,
+        ),
+        'limit': serializeParam(
+          _limit,
+          ParamType.double,
         ),
       }.withoutNulls;
 
@@ -122,14 +124,14 @@ class BalancesStruct extends FFFirebaseStruct {
           ParamType.String,
           false,
         ),
-        limit: deserializeParam(
-          data['limit'],
-          ParamType.String,
-          false,
-        ),
         unofficialCurrencyCode: deserializeParam(
           data['unofficial_currency_code'],
           ParamType.String,
+          false,
+        ),
+        limit: deserializeParam(
+          data['limit'],
+          ParamType.double,
           false,
         ),
       );
@@ -143,21 +145,21 @@ class BalancesStruct extends FFFirebaseStruct {
         available == other.available &&
         current == other.current &&
         isoCurrencyCode == other.isoCurrencyCode &&
-        limit == other.limit &&
-        unofficialCurrencyCode == other.unofficialCurrencyCode;
+        unofficialCurrencyCode == other.unofficialCurrencyCode &&
+        limit == other.limit;
   }
 
   @override
   int get hashCode => const ListEquality().hash(
-      [available, current, isoCurrencyCode, limit, unofficialCurrencyCode]);
+      [available, current, isoCurrencyCode, unofficialCurrencyCode, limit]);
 }
 
 BalancesStruct createBalancesStruct({
   int? available,
   int? current,
   String? isoCurrencyCode,
-  String? limit,
   String? unofficialCurrencyCode,
+  double? limit,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
@@ -167,8 +169,8 @@ BalancesStruct createBalancesStruct({
       available: available,
       current: current,
       isoCurrencyCode: isoCurrencyCode,
-      limit: limit,
       unofficialCurrencyCode: unofficialCurrencyCode,
+      limit: limit,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,
