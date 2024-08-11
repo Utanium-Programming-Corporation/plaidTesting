@@ -158,7 +158,7 @@ class _TransactionListWidgetState extends State<TransactionListWidget> {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text(
-                            '${transactionItem.isoCurrencyCode}${transactionItem.amount.toString()}',
+                            '${transactionItem.isoCurrencyCode} ${transactionItem.amount.toString()}',
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
