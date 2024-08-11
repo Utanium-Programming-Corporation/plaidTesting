@@ -48,6 +48,7 @@ class _TransactionListWidgetState extends State<TransactionListWidget> {
       builder: (context) {
         final transaction = widget!.transactions!
             .sortedList(keyOf: (e) => e.date, desc: true)
+            .where((e) => e.counterparties.length > 0)
             .toList();
 
         return ListView.separated(
@@ -95,7 +96,7 @@ class _TransactionListWidgetState extends State<TransactionListWidget> {
                               fit: BoxFit.cover,
                             ),
                           ),
-                        if ((transactionItem.counterparties.length == 0) &&
+                        if ((transactionItem.counterparties.length == 0) ||
                             (transactionItem.counterparties.first.logoUrl ==
                                     null ||
                                 transactionItem.counterparties.first.logoUrl ==
