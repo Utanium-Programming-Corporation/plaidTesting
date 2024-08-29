@@ -1,4 +1,5 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -976,6 +977,8 @@ class _Auth1WidgetState extends State<Auth1Widget>
                                                           0.0, 0.0, 0.0, 16.0),
                                                   child: FFButtonWidget(
                                                     onPressed: () async {
+                                                      Function() _navigate =
+                                                          () {};
                                                       GoRouter.of(context)
                                                           .prepareAuthEvent();
                                                       if (_model
@@ -1010,9 +1013,120 @@ class _Auth1WidgetState extends State<Auth1Widget>
                                                         return;
                                                       }
 
-                                                      context.goNamedAuth(
-                                                          'HomePage',
-                                                          context.mounted);
+                                                      _navigate = () =>
+                                                          context.goNamedAuth(
+                                                              'HomePage',
+                                                              context.mounted);
+                                                      _model.createUserOrganizationEmail =
+                                                          await EmailGroup
+                                                              .createNewEmailForUserCall
+                                                              .call(
+                                                        userName:
+                                                            currentUserUid,
+                                                      );
+
+                                                      if ((_model
+                                                              .createUserOrganizationEmail
+                                                              ?.succeeded ??
+                                                          true)) {
+                                                        _model.startInboxListen =
+                                                            await EmailGroup
+                                                                .startWatchEmailCall
+                                                                .call(
+                                                          userId:
+                                                              currentUserUid,
+                                                        );
+
+                                                        if ((_model
+                                                                .startInboxListen
+                                                                ?.succeeded ??
+                                                            true)) {
+                                                          ScaffoldMessenger.of(
+                                                                  context)
+                                                              .clearSnackBars();
+                                                          ScaffoldMessenger.of(
+                                                                  context)
+                                                              .showSnackBar(
+                                                            SnackBar(
+                                                              content: Text(
+                                                                'ok',
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryText,
+                                                                ),
+                                                              ),
+                                                              duration: Duration(
+                                                                  milliseconds:
+                                                                      2000),
+                                                              backgroundColor:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .secondary,
+                                                            ),
+                                                          );
+                                                        } else {
+                                                          ScaffoldMessenger.of(
+                                                                  context)
+                                                              .clearSnackBars();
+                                                          ScaffoldMessenger.of(
+                                                                  context)
+                                                              .showSnackBar(
+                                                            SnackBar(
+                                                              content: Text(
+                                                                (_model.startInboxListen
+                                                                        ?.bodyText ??
+                                                                    ''),
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryText,
+                                                                ),
+                                                              ),
+                                                              duration: Duration(
+                                                                  milliseconds:
+                                                                      4000),
+                                                              backgroundColor:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .error,
+                                                            ),
+                                                          );
+                                                        }
+                                                      } else {
+                                                        ScaffoldMessenger.of(
+                                                                context)
+                                                            .clearSnackBars();
+                                                        ScaffoldMessenger.of(
+                                                                context)
+                                                            .showSnackBar(
+                                                          SnackBar(
+                                                            content: Text(
+                                                              (_model.createUserOrganizationEmail
+                                                                      ?.bodyText ??
+                                                                  ''),
+                                                              style: TextStyle(
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryText,
+                                                              ),
+                                                            ),
+                                                            duration: Duration(
+                                                                milliseconds:
+                                                                    4000),
+                                                            backgroundColor:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .error,
+                                                          ),
+                                                        );
+                                                      }
+
+                                                      _navigate();
+
+                                                      setState(() {});
                                                     },
                                                     text: 'Create Account',
                                                     options: FFButtonOptions(

@@ -1,4 +1,5 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -15,6 +16,7 @@ import 'package:provider/provider.dart';
 class Auth1Model extends FlutterFlowModel<Auth1Widget> {
   ///  State fields for stateful widgets in this page.
 
+  final unfocusNode = FocusNode();
   // State field(s) for TabBar widget.
   TabController? tabBarController;
   int get tabBarCurrentIndex =>
@@ -46,6 +48,10 @@ class Auth1Model extends FlutterFlowModel<Auth1Widget> {
   late bool passwordConfirmVisibility;
   String? Function(BuildContext, String?)?
       passwordConfirmTextControllerValidator;
+  // Stores action output result for [Backend Call - API (createNewEmailForUser)] action in Button widget.
+  ApiCallResponse? createUserOrganizationEmail;
+  // Stores action output result for [Backend Call - API (startWatchEmail)] action in Button widget.
+  ApiCallResponse? startInboxListen;
 
   @override
   void initState(BuildContext context) {

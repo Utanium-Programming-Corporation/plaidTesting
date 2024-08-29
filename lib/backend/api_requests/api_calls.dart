@@ -248,6 +248,105 @@ class GetItemBalanceCall {
 
 /// End plaid Group Code
 
+/// Start Email Group Code
+
+class EmailGroup {
+  static String getBaseUrl() => 'https://';
+  static Map<String, String> headers = {};
+  static CreateNewEmailForUserCall createNewEmailForUserCall =
+      CreateNewEmailForUserCall();
+  static StartWatchEmailCall startWatchEmailCall = StartWatchEmailCall();
+  static StopWatchEmailCall stopWatchEmailCall = StopWatchEmailCall();
+}
+
+class CreateNewEmailForUserCall {
+  Future<ApiCallResponse> call({
+    String? userName = '',
+    String? password = '',
+  }) async {
+    final baseUrl = EmailGroup.getBaseUrl();
+
+    final ffApiRequestBody = '''
+{
+  "userName": "${userName}",
+  "password": "${password}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'createNewEmailForUser',
+      apiUrl: '${baseUrl}createnewemailfortheuser-is4fgbhoyq-nw.a.run.app',
+      callType: ApiCallType.POST,
+      headers: {},
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: true,
+      decodeUtf8: true,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class StartWatchEmailCall {
+  Future<ApiCallResponse> call({
+    String? userId = '',
+  }) async {
+    final baseUrl = EmailGroup.getBaseUrl();
+
+    final ffApiRequestBody = '''
+{
+  "userId": "${userId}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'startWatchEmail',
+      apiUrl: '${baseUrl}startinboxwatch-is4fgbhoyq-nw.a.run.app',
+      callType: ApiCallType.POST,
+      headers: {},
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class StopWatchEmailCall {
+  Future<ApiCallResponse> call({
+    String? userId = '',
+  }) async {
+    final baseUrl = EmailGroup.getBaseUrl();
+
+    final ffApiRequestBody = '''
+{
+  "email": "${userId}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'stopWatchEmail',
+      apiUrl: '${baseUrl}stopinboxwatch-is4fgbhoyq-nw.a.run.app',
+      callType: ApiCallType.POST,
+      headers: {},
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+/// End Email Group Code
+
 class ApiPagingParams {
   int nextPageNumber = 0;
   int numItems = 0;

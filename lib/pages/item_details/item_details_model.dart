@@ -13,6 +13,7 @@ import 'package:provider/provider.dart';
 class ItemDetailsModel extends FlutterFlowModel<ItemDetailsWidget> {
   ///  State fields for stateful widgets in this page.
 
+  final unfocusNode = FocusNode();
   // Model for blancesList component.
   late BlancesListModel blancesListModel;
   // Model for transactionList component.

@@ -15,6 +15,7 @@ import 'package:provider/provider.dart';
 class HomePageModel extends FlutterFlowModel<HomePageWidget> {
   ///  State fields for stateful widgets in this page.
 
+  final unfocusNode = FocusNode();
   // Stores action output result for [Backend Call - API (getLinkToken)] action in FloatingActionButton widget.
   ApiCallResponse? generatedLinkToken;
   // Stores action output result for [Custom Action - startPlaid] action in FloatingActionButton widget.

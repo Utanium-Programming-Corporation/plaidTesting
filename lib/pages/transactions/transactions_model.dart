@@ -13,6 +13,7 @@ import 'package:provider/provider.dart';
 class TransactionsModel extends FlutterFlowModel<TransactionsWidget> {
   ///  State fields for stateful widgets in this page.
 
+  final unfocusNode = FocusNode();
   // Model for transactionList component.
   late TransactionListModel transactionListModel;
 
