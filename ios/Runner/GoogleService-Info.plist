@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyCrbfl3ACe0qC905irP65WSzu2hDpilIMo</string>
+	<string>AIzaSyAMXpAs6PIbI2ar5egaPnJGXFmg8WNlKo4</string>
 	<key>GCM_SENDER_ID</key>
-	<string>356870749890</string>
+	<string>278545472036</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.mycompany.plaidtesting</string>
 	<key>PROJECT_ID</key>
-	<string>plaidtestingred</string>
+	<string>emailmanager-b43f0</string>
 	<key>STORAGE_BUCKET</key>
-	<string>plaidtestingred.appspot.com</string>
+	<string>emailmanager-b43f0.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:356870749890:ios:47b44b442d76919436455b</string>
+	<string>1:278545472036:ios:a91b7d54092cc2b6ef16b1</string>
 </dict>
 </plist>

@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "356870749890",
-    "project_id": "plaidtestingred",
-    "storage_bucket": "plaidtestingred.appspot.com"
+    "project_number": "278545472036",
+    "project_id": "emailmanager-b43f0",
+    "storage_bucket": "emailmanager-b43f0.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:356870749890:android:e43920b0791eb44336455b",
+        "mobilesdk_app_id": "1:278545472036:android:d133f96e5cc6cdb3ef16b1",
         "android_client_info": {
           "package_name": "com.mycompany.plaidtesting"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBbUFXtQwFmIVMV2dSBOVApns3O1qGPrSA"
+          "current_key": "AIzaSyCF79rxxZWtfAw0ZEY3RSPafAQJhm_2PHk"
         }
       ],
       "services": {

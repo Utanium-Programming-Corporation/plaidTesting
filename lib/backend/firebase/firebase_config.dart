@@ -5,12 +5,12 @@ Future initFirebase() async {
   if (kIsWeb) {
     await Firebase.initializeApp(
         options: FirebaseOptions(
-            apiKey: "AIzaSyBmTE9x8YCiCX9p-UppqhEsBXDiLejd6Sk",
-            authDomain: "plaidtestingred.firebaseapp.com",
-            projectId: "plaidtestingred",
-            storageBucket: "plaidtestingred.appspot.com",
-            messagingSenderId: "356870749890",
-            appId: "1:356870749890:web:884b7826d80e065036455b"));
+            apiKey: "AIzaSyCkRDAWukPj6jHhaah15Hkh_W5fH9p7Ibw",
+            authDomain: "emailmanager-b43f0.firebaseapp.com",
+            projectId: "emailmanager-b43f0",
+            storageBucket: "emailmanager-b43f0.appspot.com",
+            messagingSenderId: "278545472036",
+            appId: "1:278545472036:web:324ec0f2a2485080ef16b1"));
   } else {
     await Firebase.initializeApp();
   }
