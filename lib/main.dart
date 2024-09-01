@@ -125,6 +125,7 @@ class _NavBarPageState extends State<NavBarPage> {
     final tabs = {
       'HomePage': HomePageWidget(),
       'transactions': TransactionsWidget(),
+      'files': FilesWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
 
@@ -157,6 +158,14 @@ class _NavBarPageState extends State<NavBarPage> {
               size: 24.0,
             ),
             label: 'transactions',
+            tooltip: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.folder,
+              size: 24.0,
+            ),
+            label: 'files',
             tooltip: '',
           )
         ],

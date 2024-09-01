@@ -5,7 +5,9 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:async';
 import 'dart:math';
+import '/actions/actions.dart' as action_blocks;
 import 'auth1_widget.dart' show Auth1Widget;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -52,8 +54,6 @@ class Auth1Model extends FlutterFlowModel<Auth1Widget> {
       passwordConfirmTextControllerValidator;
   // Stores action output result for [Backend Call - API (createNewEmailForUser)] action in Button widget.
   ApiCallResponse? createUserOrganizationEmail;
-  // Stores action output result for [Backend Call - API (startWatchEmail)] action in Button widget.
-  ApiCallResponse? startInboxListen;
 
   @override
   void initState(BuildContext context) {

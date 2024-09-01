@@ -120,6 +120,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ParamType.String,
             ),
           ),
+        ),
+        FFRoute(
+          name: 'files',
+          path: '/files',
+          builder: (context, params) =>
+              params.isEmpty ? NavBarPage(initialPage: 'files') : FilesWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
