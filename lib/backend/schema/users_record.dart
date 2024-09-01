@@ -51,6 +51,11 @@ class UsersRecord extends FirestoreRecord {
   List<TokenStruct> get accessTokensArray => _accessTokensArray ?? const [];
   bool hasAccessTokensArray() => _accessTokensArray != null;
 
+  // "organizationEmail" field.
+  String? _organizationEmail;
+  String get organizationEmail => _organizationEmail ?? '';
+  bool hasOrganizationEmail() => _organizationEmail != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _displayName = snapshotData['display_name'] as String?;
@@ -62,6 +67,7 @@ class UsersRecord extends FirestoreRecord {
       snapshotData['access_tokens_array'],
       TokenStruct.fromMap,
     );
+    _organizationEmail = snapshotData['organizationEmail'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -104,6 +110,7 @@ Map<String, dynamic> createUsersRecordData({
   String? uid,
   DateTime? createdTime,
   String? phoneNumber,
+  String? organizationEmail,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -113,6 +120,7 @@ Map<String, dynamic> createUsersRecordData({
       'uid': uid,
       'created_time': createdTime,
       'phone_number': phoneNumber,
+      'organizationEmail': organizationEmail,
     }.withoutNulls,
   );
 
@@ -131,7 +139,8 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.uid == e2?.uid &&
         e1?.createdTime == e2?.createdTime &&
         e1?.phoneNumber == e2?.phoneNumber &&
-        listEquality.equals(e1?.accessTokensArray, e2?.accessTokensArray);
+        listEquality.equals(e1?.accessTokensArray, e2?.accessTokensArray) &&
+        e1?.organizationEmail == e2?.organizationEmail;
   }
 
   @override
@@ -142,7 +151,8 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.uid,
         e?.createdTime,
         e?.phoneNumber,
-        e?.accessTokensArray
+        e?.accessTokensArray,
+        e?.organizationEmail
       ]);
 
   @override

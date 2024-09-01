@@ -261,19 +261,17 @@ class EmailGroup {
 
 class CreateNewEmailForUserCall {
   Future<ApiCallResponse> call({
-    String? userName = '',
-    String? password = '',
+    String? userEmail = '',
   }) async {
     final baseUrl = EmailGroup.getBaseUrl();
 
     final ffApiRequestBody = '''
 {
-  "userName": "${userName}",
-  "password": "${password}"
+  "userEmail": "${userEmail}"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'createNewEmailForUser',
-      apiUrl: '${baseUrl}createnewemailfortheuser-is4fgbhoyq-nw.a.run.app',
+      apiUrl: '${baseUrl}createnewemailfortheuser-jvu72niqza-nw.a.run.app',
       callType: ApiCallType.POST,
       headers: {},
       params: {},
@@ -287,21 +285,27 @@ class CreateNewEmailForUserCall {
       alwaysAllowBody: false,
     );
   }
+
+  String? organizationEmail(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$.email''',
+      ));
 }
 
 class StartWatchEmailCall {
   Future<ApiCallResponse> call({
-    String? userId = '',
+    String? email = '',
   }) async {
     final baseUrl = EmailGroup.getBaseUrl();
 
     final ffApiRequestBody = '''
 {
-  "userId": "${userId}"
+  "email": "${email}"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'startWatchEmail',
-      apiUrl: '${baseUrl}startinboxwatch-is4fgbhoyq-nw.a.run.app',
+      apiUrl: '${baseUrl}startinboxwatch-jvu72niqza-nw.a.run.app',
       callType: ApiCallType.POST,
       headers: {},
       params: {},
@@ -319,17 +323,17 @@ class StartWatchEmailCall {
 
 class StopWatchEmailCall {
   Future<ApiCallResponse> call({
-    String? userId = '',
+    String? email = '',
   }) async {
     final baseUrl = EmailGroup.getBaseUrl();
 
     final ffApiRequestBody = '''
 {
-  "email": "${userId}"
+  "email": "${email}"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'stopWatchEmail',
-      apiUrl: '${baseUrl}stopinboxwatch-is4fgbhoyq-nw.a.run.app',
+      apiUrl: '${baseUrl}stopinboxwatch-jvu72niqza-nw.a.run.app',
       callType: ApiCallType.POST,
       headers: {},
       params: {},

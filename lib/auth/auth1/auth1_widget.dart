@@ -1,11 +1,13 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
+import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -108,6 +110,8 @@ class _Auth1WidgetState extends State<Auth1Widget>
         ],
       ),
     });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -1021,20 +1025,36 @@ class _Auth1WidgetState extends State<Auth1Widget>
                                                           await EmailGroup
                                                               .createNewEmailForUserCall
                                                               .call(
-                                                        userName:
-                                                            currentUserUid,
+                                                        userEmail:
+                                                            currentUserEmail,
                                                       );
 
                                                       if ((_model
                                                               .createUserOrganizationEmail
                                                               ?.succeeded ??
                                                           true)) {
+                                                        await currentUserReference!
+                                                            .update(
+                                                                createUsersRecordData(
+                                                          organizationEmail: EmailGroup
+                                                              .createNewEmailForUserCall
+                                                              .organizationEmail(
+                                                            (_model.createUserOrganizationEmail
+                                                                    ?.jsonBody ??
+                                                                ''),
+                                                          ),
+                                                        ));
                                                         _model.startInboxListen =
                                                             await EmailGroup
                                                                 .startWatchEmailCall
                                                                 .call(
-                                                          userId:
-                                                              currentUserUid,
+                                                          email: EmailGroup
+                                                              .createNewEmailForUserCall
+                                                              .organizationEmail(
+                                                            (_model.createUserOrganizationEmail
+                                                                    ?.jsonBody ??
+                                                                ''),
+                                                          ),
                                                         );
 
                                                         if ((_model

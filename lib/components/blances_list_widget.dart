@@ -32,6 +32,8 @@ class _BlancesListWidgetState extends State<BlancesListWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => BlancesListModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

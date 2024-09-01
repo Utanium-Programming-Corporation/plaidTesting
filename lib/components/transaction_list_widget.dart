@@ -33,6 +33,8 @@ class _TransactionListWidgetState extends State<TransactionListWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => TransactionListModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
